@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 #simple-ball-game {
     margin: 0;
     position: absolute;
