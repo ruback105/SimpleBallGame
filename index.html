@@ -2,33 +2,34 @@
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+
+<div id="simple-ball-game"></div>
 
 <script>
     var config = {
         type: Phaser.AUTO,
-        width: 1920,
-        height: 1080,
+        width: 800,
+        height: 600,
+        parent: 'simple-ball-game',
         scene: {
             preload: preload,
             create: create,
-            update: update
+            update: update``
         }
     };
 
     var game = new Phaser.Game(config);
 
-    function preload ()
-    {
+    function preload() {
     }
 
-    function create ()
-    {
+    function create() {
     }
 
-    function update ()
-    {
+    function update() {
     }
 
 </script>
