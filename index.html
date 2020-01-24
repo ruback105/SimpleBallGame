@@ -35,27 +35,16 @@
     }
 
     function create() {
-        this.add.image(0, 0, 'background').setOrigin(0, 0);
+        var bg = this.add.image(0, 0, 'background').setOrigin(0, 0);
         var platform = this.add.image(0, 0, 'platform');
 
         var container = this.add.container(640, 800, [ platform ]);
+
         container.setSize(platform.width, platform.height);
 
         container.setInteractive();
 
-        this.input.setDraggable(container);
-
-        container.on('pointerover', function () {
-
-            platform.setTint(0x44ff44);
-
-        });
-
-        container.on('pointerout', function () {
-
-            platform.clearTint();
-
-        });
+        this.input.setDraggable(container, bg);
 
         this.input.on('drag', function (pointer, gameObject, dragX) {
 
