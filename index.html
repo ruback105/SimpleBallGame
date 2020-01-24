@@ -14,10 +14,16 @@
         width: 1280,
         height: 900,
         parent: 'simple-ball-game',
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 300 },
+                debug: false
+            }
+        },
         scene: {
             preload: preload,
-            create: create,
-            update: update
+            create: create
         }
     };
 
@@ -25,14 +31,37 @@
 
     function preload() {
         this.load.image('background', 'assets/background.jpg');
-        this.load.image('background', 'assets/platform.png');
+        this.load.image('platform', 'assets/platform.png');
     }
 
     function create() {
         this.add.image(0, 0, 'background').setOrigin(0, 0);
-    }
+        var platform = this.add.image(0, 0, 'platform');
 
-    function update() {
+        var container = this.add.container(640, 800, [ platform ]);
+        container.setSize(platform.width, platform.height);
+
+        container.setInteractive();
+
+        this.input.setDraggable(container);
+
+        container.on('pointerover', function () {
+
+            platform.setTint(0x44ff44);
+
+        });
+
+        container.on('pointerout', function () {
+
+            platform.clearTint();
+
+        });
+
+        this.input.on('drag', function (pointer, gameObject, dragX) {
+
+            gameObject.x = dragX;
+
+        });
     }
 
 </script>
