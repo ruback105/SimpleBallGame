@@ -9,7 +9,7 @@
 <div id="simple-ball-game"></div>
 
 <script>
-    var config = {
+    var gameConfig = {
         type: Phaser.AUTO,
         width: 1280,
         height: 900,
@@ -17,42 +17,46 @@
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 300 },
+                gravity: {y: 300},
                 debug: false
             }
         },
         scene: {
             preload: preload,
-            create: create
+            create: create,
+            update: update
         }
     };
 
-    var game = new Phaser.Game(config);
+    var game = new Phaser.Game(gameConfig);
 
     function preload() {
         this.load.image('background', 'assets/background.jpg');
-        this.load.image('platform', 'assets/platform.png');
+        this.load.spritesheet('platform', 'assets/platform.png', {frameWidth: 32, frameHeight: 48}
+        );
     }
 
     function create() {
-        var bg = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        var platform = this.add.image(0, 0, 'platform');
 
-        var container = this.add.container(640, 800, [ platform ]);
+        this.add.image(0, 0, 'background').setOrigin(0, 0);
 
-        container.setSize(platform.width, platform.height);
+        platform = this.physics.add.sprite(640, 800, 'platform');
 
-        container.setInteractive();
+        platform.setCollideWorldBounds(true);
+        platform.body.allowGravity = false;
 
-        this.input.setDraggable(container);
-
-        this.input.on('drag', function (pointer, gameObject, dragX) {
-
-            gameObject.x = dragX;
-
-        });
+        cursors = this.input.keyboard.createCursorKeys();
     }
 
+    function update() {
+        if (cursors.left.isDown) {
+            platform.setVelocityX(-160);
+        } else if (cursors.right.isDown) {
+            platform.setVelocityX(160);
+        } else {
+            platform.setVelocityX(0);
+        }
+    }
 </script>
 
 </body>
